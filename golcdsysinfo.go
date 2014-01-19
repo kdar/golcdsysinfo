@@ -149,6 +149,11 @@ func (l *LCDSysInfo) Close() {
   }
 }
 
+// Return the usb device.
+func (l *LCDSysInfo) GetDevice() *usb.Device {
+  return l.dev
+}
+
 // Set the brightness level. 0-255
 func (l *LCDSysInfo) SetBrightness(value int) error {
   if value > 255 {
@@ -324,7 +329,7 @@ func (l *LCDSysInfo) DrawProgressBar(bar ProgressBar) error {
 }
 
 // Draw text on a particular line (1-6).
-func (l *LCDSysInfo) DrawTextOnLine(line int, text string, padForIcon bool, align int, color FgColor) error {
+func (l *LCDSysInfo) DrawTextOnLine(line int, text string, padForIcon bool, align TextAlign, color FgColor) error {
   data := convertText(text, padForIcon, align)
   dataLen := len(data)
   if !padForIcon {
